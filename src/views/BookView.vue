@@ -4,15 +4,10 @@ import getBooksPromise from '@/services/dataFetcher';
 import BookAddingForm from '@/components/book_adding_form/BookAddingForm.vue';
 import BookCopyAddingForm from '@/components/book_adding_form/BookCopyAddingForm.vue'
 
-
-const bookName = ref('')
-const authorName = ref('')
-const releaseDate = ref('')
-const bookData = ref([]);
+const bookData = ref(null);
 
 async function fetchBooks() {
     try {
-        console.log(`Calling promise.`)
         await getBooksPromise().then(result => {
             bookData.value = result.data;
         })
@@ -23,7 +18,6 @@ async function fetchBooks() {
 
 onMounted(() => {
     fetchBooks();
-    console.log(`the component is now mounted.`)
 })
 
 </script>
@@ -35,7 +29,7 @@ onMounted(() => {
         <h1>All Books</h1>
         <button @click="fetchBooks()">refresh</button>
         <ul v-if="bookData">
-            <li v-for="oneBook in bookData" :key="oneBook.id">Id: {{oneBook.id}}, Name:{{ oneBook.name }}, Author:{{ oneBook.author }}, Available
+            <li v-for="oneBook in bookData" :key="oneBook.id">Id: {{ oneBook.id }}, Name:{{ oneBook.name }}, Author:{{ oneBook.author }}, Available
                 copys: {{ oneBook.availableCopyCount }}</li>
         </ul>
         <p v-else>Loading...</p>
