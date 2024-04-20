@@ -26,3 +26,7 @@ export function createBookCopyPromise(bookCopyForm) {
 export function getReaderPromise() {
     return axios.get(mainPath + readerPath);
 }
+
+export function createReaderPromise(readerForm) {
+    return axios.post(mainPath + readerPath, readerForm);
+}

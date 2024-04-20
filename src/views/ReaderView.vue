@@ -1,12 +1,14 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { getReaderPromise } from '@/services/dataFetcher';
+import ReaderAddingForm from '@/components/forms/ReaderAddingForm.vue'
+
 
 const readerData = ref(null);
 
 async function fetchReaders() {
     try {
-        await getReaderPromise().then(result => readerData.value = result.data);
+        await getReaderPromise( readerData.value ).then( result => readerData.value = result.data);
     } catch (error) {
         console.log(error);
     }
@@ -21,6 +23,7 @@ onMounted(() => {
 
 <template>
     <div class="Readers">
+        <ReaderAddingForm />
         <h1>All Readers</h1>
         <button @click="fetchReaders()">refresh</button>
         <ul v-if="readerData">

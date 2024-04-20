@@ -1,14 +1,14 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import getBooksPromise from '@/services/dataFetcher';
-import BookAddingForm from '@/components/book_adding_form/BookAddingForm.vue';
-import BookCopyAddingForm from '@/components/book_adding_form/BookCopyAddingForm.vue'
+import BookAddingForm from '@/components/forms/BookAddingForm.vue';
+import BookCopyAddingForm from '@/components/forms/BookCopyAddingForm.vue'
 
 const bookData = ref(null);
 
 async function fetchBooks() {
     try {
-        await getBooksPromise().then(result => {
+        await getBooksPromise().then( result => {
             bookData.value = result.data;
         })
     } catch (error) {
