@@ -1,9 +1,30 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import getBooksPromise from '@/services/dataFetcher';
+
 
 const bookName = ref('')
 const authorName = ref('')
 const releaseDate = ref('')
+const bookData = ref([]);
+
+async function fetchBooks() {
+    try {
+        console.log(`Calling promise.`)
+        await getBooksPromise().then(result => {
+            bookData.value = result.data;
+        })
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+onMounted(() => {
+    fetchBooks();
+    console.log(`the component is now mounted.`)
+})
+
 </script>
 
 <template>
@@ -21,8 +42,8 @@ const releaseDate = ref('')
     </div>
     <div class="Books">
         <h1>All Books</h1>
-        <ul v-if="apiData">
-            <li v-for="oneBook in apiData" :key="oneBook.id">Name:{{ oneBook.name }}, Author:{{ oneBook.author }}, Available
+        <ul v-if="bookData">
+            <li v-for="oneBook in bookData" :key="oneBook.id">Name:{{ oneBook.name }}, Author:{{ oneBook.author }}, Available
                 copys: {{ oneBook.availableCopyCount }}</li>
         </ul>
         <p v-else>Loading...</p>
@@ -38,49 +59,3 @@ const releaseDate = ref('')
     }
 }
 </style>
-
-<script>
-import axios from 'axios';
-
-export default {
-    data() {
-        return {
-            apiData: null,
-
-        };
-    },
-    methods: {
-
-        async getBooks() {
-            try {
-                const { data } = await axios.get("http://localhost:8080/book");
-                this.apiData = data;
-            } catch (error) {
-                console.log(error);
-            }
-
-        },
-
-        async createBook(bookName, authorName, releaseDate) {
-            try {
-                const { data } = await axios.post(
-                    "http://localhost:8080/book",
-                    {
-                        name: bookName,
-                        author: authorName,
-                        releaseDate: releaseDate,
-                    }
-                )
-            } catch (error) {
-                console.log(error);
-            }
-            this.getBooks();
-        }
-
-    },
-    beforeMount() {
-        this.getBooks();
-    }
-};
-
-</script>
