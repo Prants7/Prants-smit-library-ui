@@ -15,9 +15,7 @@ async function createBook() {
     }
 }
 
-
 </script>
-
 
 
 <template>
