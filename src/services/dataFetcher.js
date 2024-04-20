@@ -4,6 +4,7 @@ const mainPath = "http://localhost:8080";
 const bookPath = "/book";
 const bookCopyPath = "/book/copy";
 const readerPath = "/reader";
+const borrowPath = "/borrow";
 
 export default function getBooksPromise() {
     return axios.get(mainPath + bookPath);
@@ -29,4 +30,12 @@ export function getReaderPromise() {
 
 export function createReaderPromise(readerForm) {
     return axios.post(mainPath + readerPath, readerForm);
+}
+
+export function getBorrowedBooksPromise() {
+    return axios.get(mainPath + borrowPath);
+}
+
+export function borrowNewBookPromise(borrowForm) {
+    return axios.post(mainPath + borrowPath, borrowForm);
 }
