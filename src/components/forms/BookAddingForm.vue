@@ -25,7 +25,7 @@ async function createBook() {
         <input v-model="bookName">
         <h4>Author name:</h4>
         <input v-model="authorName">
-        <h4>Release Date:</h4>
+        <h4>Release Date(E:2004-05-25):</h4>
         <input v-model="releaseDate">
 
         <button @click="createBook()">Add new book</button>

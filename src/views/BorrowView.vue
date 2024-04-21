@@ -32,9 +32,7 @@ onMounted(() => {
 
 <template>
     <div class="BorrowedBooks">
-        <BorrowingForm />
         <h1>All Borrowed Books</h1>
-        <button @click="fetchBorrowData()">refresh</button>
         <ul v-if="borrowData">
             <li v-for="oneBorrow in borrowData" :key="oneBorrow.borrowId">
                 Book name:{{ oneBorrow.bookName }}, Book copy code: {{ oneBorrow.bookCopyScanCode }}, 
