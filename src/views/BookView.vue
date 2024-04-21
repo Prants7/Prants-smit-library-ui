@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import getBooksPromise from '@/services/dataFetcher';
 import BookAddingForm from '@/components/forms/BookAddingForm.vue';
-import BookCopyAddingForm from '@/components/forms/BookCopyAddingForm.vue'
+import router from '@/router';
 
 const bookData = ref(null);
 
@@ -16,6 +16,10 @@ async function fetchBooks() {
     }
 }
 
+function routeToBookDetails(bookId) {
+    router.push('/book/' + bookId)
+}
+
 onMounted(() => {
     fetchBooks();
 })
@@ -24,13 +28,12 @@ onMounted(() => {
 
 <template>
     <BookAddingForm />
-    <BookCopyAddingForm />
     <div class="Books">
         <h1>All Books</h1>
         <button @click="fetchBooks()">refresh</button>
         <ul v-if="bookData">
             <li v-for="oneBook in bookData" :key="oneBook.id">Id: {{ oneBook.id }}, Name:{{ oneBook.name }}, Author:{{ oneBook.author }}, Available
-                copys: {{ oneBook.availableCopyCount }}</li>
+                copys: {{ oneBook.availableCopyCount }} <button @click="routeToBookDetails(oneBook.id)">details</button></li>
         </ul>
         <p v-else>Loading...</p>
     </div>

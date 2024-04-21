@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import BookView from '../views/BookView.vue'
 import ReaderView from '../views/ReaderView.vue'
 import BorrowView from '@/views/BorrowView.vue'
+import BookDetailsView from '@/views/BookDetailsView.vue'
+import ReaderDetailView from '@/views/ReaderDetailView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +36,16 @@ const router = createRouter({
       path: '/borrow',
       name: 'borrow',
       component: BorrowView
+    },
+    {
+      path: '/book/:id',
+      name: 'bookDetails',
+      component: BookDetailsView
+    },
+    {
+      path: '/reader/:code',
+      name: 'readerDetails',
+      component: ReaderDetailView
     }
   ]
 })

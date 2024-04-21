@@ -6,6 +6,7 @@ const bookCopyPath = "/book/copy";
 const readerPath = "/reader";
 const borrowPath = "/borrow";
 const returnPath = "/borrow/return";
+const scanCodeAvilable = "/available";
 
 export default function getBooksPromise() {
     return axios.get(mainPath + bookPath);
@@ -43,4 +44,20 @@ export function borrowNewBookPromise(borrowForm) {
 
 export function returnOldBookPromise(returnForm) {
     return axios.put(mainPath + returnPath, returnForm);
+}
+
+export function getBookScanCodesPromise(bookId) {
+    return axios.get(mainPath + bookPath + '/' + bookId + scanCodeAvilable)
+}
+
+export function getOneBookPromise(bookId) {
+    return axios.get(mainPath + bookPath + '/' + bookId)
+}
+
+export function getReaderDetailsPromise(readerCode) {
+    return axios.get(mainPath + readerPath + '/' + readerCode);
+}
+
+export function getBorrowedBooksForReaderPromise(readerCode) {
+    return axios.get(mainPath + borrowPath);
 }
